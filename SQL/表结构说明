@@ -1,0 +1,36 @@
+Account：
+  username:用户名 PK
+  password:密码
+  email:邮箱
+  xm：姓名
+  address：地址
+Profile:爱好
+  username pk fk
+  lang:喜爱的语言设置
+  catid:喜爱的宠物id FK
+
+Category：宠物种类
+  catid:宠物id
+  name：宠物名称
+  descn：宠物描述
+Product:宠物产品
+  productid ：产品编号 pk
+  catid:种类编号 fk
+  name:产品名称
+  descn：产品具体描述
+  pic：产品的图片
+Item:宠物项目
+  itemid:宠物项目id pk
+  productid:产品编号 fk
+  listprice:单价
+  attr1:该项目描述
+Cart:购物车
+  username：哪个用户PK FK
+  orderid：订单编号PK FK
+  itemid：项目编号PK FK
+  quantity:数量：
+Orders
+  username：哪个用户 PK FK
+  orderid：订单编号 PK
+  orderdate:结单日期
+  totalprice：总计价格

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!-- 数据库驱动包位置 -->
+    <!-- <classPathEntry location="D:\software\lib\mysql-connector-java-5.1.21.jar" /> -->
+    <classPathEntry location="D:\DOC\java\JDBC\mysql-connector-java-5.1.40.jar" />
+    <context id="mysqltools" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+        <!-- 数据库链接URL、用户名、密码 -->
+        <!-- <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/sy" userId="sypro" password="sypro"> -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1/mpet?useUnicode=true&amp;characterEncoding=utf-8"
+                        userId="root" password="root">
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+        <!-- 生成模型的包名和位置 -->
+        <javaModelGenerator targetPackage="com.weikun.model" targetProject="C:\mybatisgen">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+        <!-- 生成的映射文件包名和位置 -->
+        <sqlMapGenerator targetPackage="com.weikun.mapping" targetProject="C:\mybatisgen">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+        <!-- 生成DAO的包名和位置 XMLMAPPER-->
+        <javaClientGenerator type="ANNOTATEDMAPPER" targetPackage="com.weikun.mapper"
+                             targetProject="C:\mybatisgen">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+        <!-- 要生成那些表(更改tableName和domainObjectName就可以)
+            更复杂的方式如下： 但基本不常用
+            <table tableName="tmenu" domainObjectName="Menu" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+
+        -->
+		<table tableName="account" domainObjectName="Account"  />
+		<table tableName="profile" domainObjectName="Profile"  />
+		<table tableName="category" domainObjectName="Category"  />
+		<table tableName="product" domainObjectName="Product"  />
+		<table tableName="item" domainObjectName="Item"  />
+		<table tableName="cart" domainObjectName="Cart"  />
+		<table tableName="orders" domainObjectName="Orders"  />
+		
+
+    </context>
+</generatorConfiguration>
