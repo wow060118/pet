@@ -1,28 +1,37 @@
 package com.weikun.controller;
 
-import com.weikun.init.InitDataDAO;
+import com.weikun.initdao.InitDataDAO;
+import com.weikun.service.InitDataService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * åˆ›å»ºè€…ï¼šweikunã€YSTã€‘   æ—¥æœŸï¼š2017/9/17
- * è¯´è¯´åŠŸèƒ½ï¼š
+ * ´´½¨Õß£ºweikun¡¾YST¡¿   ÈÕÆÚ£º2017/9/17
+ * ËµËµ¹¦ÄÜ£º
  */
 @RestController
 @RequestMapping("/init")
 @CrossOrigin
+@Api(value = "initController", description = "³õÊ¼»¯Êı¾İAPI")
 public class InitController {
     @Autowired
-    private  InitDataDAO initDataDao;
+    private InitDataService service;
 
-    @RequestMapping("/init")
-    public void init(){
-        initDataDao.initAccount();
-        initDataDao.getHashByKey();
-
-
+    @RequestMapping(value = "/init",method = RequestMethod.GET)
+    @ApiOperation(value="³õÊ¼»¯Êı¾İ", notes="³õÊ¼»¯Êı¾İÏêÏ¸ÃèÊö")
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "³É¹¦")})
+    public ResponseEntity<Void> init(){
+        service.init();
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
 

@@ -1,9 +1,10 @@
-package com.weikun.init;
+package com.weikun.redis.dao;
 
 import com.weikun.model.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.SetOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -14,11 +15,9 @@ import java.io.Serializable;
  * 说说功能：
  */
 @Repository
-public class InitDAO {
+public class RedisDAO {
     @Autowired
     private RedisTemplate<Serializable, Serializable> redisTemplate;
-
-
 
     @Autowired
     private RedisTemplate<String,Integer> redisTemplate1;
@@ -29,6 +28,10 @@ public class InitDAO {
     public void saveHashByRedis(String tablename, String key, Object obj) {
         HashOperations hash=redisTemplate.opsForHash();
         hash.put(tablename,key,obj);
+    }
+    public void saveSetByRedis(String key,Object value){
+        SetOperations set=redisTemplate.opsForSet();
+        set.add(key,value);
     }
 
     public void getHashByKey(){

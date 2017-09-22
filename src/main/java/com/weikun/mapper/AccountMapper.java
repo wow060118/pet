@@ -65,6 +65,23 @@ public interface AccountMapper {
     })
     Account selectByPrimaryKey(String username);
 
+
+    @Select({
+            "select",
+            "username, password, email, xm, address",
+            "from account",
+            "where username = #{username,jdbcType=VARCHAR} and ",
+            "password = #{password,jdbcType=VARCHAR}"
+    })
+    @Results({
+            @Result(column="username", property="username", jdbcType=JdbcType.VARCHAR, id=true),
+            @Result(column="password", property="password", jdbcType=JdbcType.VARCHAR),
+            @Result(column="email", property="email", jdbcType=JdbcType.VARCHAR),
+            @Result(column="xm", property="xm", jdbcType=JdbcType.VARCHAR),
+            @Result(column="address", property="address", jdbcType=JdbcType.VARCHAR)
+    })
+    Account login(Account account);
+
     @UpdateProvider(type=AccountSqlProvider.class, method="updateByExampleSelective")
     int updateByExampleSelective(@Param("record") Account record, @Param("example") AccountExample example);
 

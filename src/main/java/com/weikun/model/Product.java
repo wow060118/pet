@@ -2,6 +2,15 @@ package com.weikun.model;
 
 public class Product {
     private String productid;
+    private Category category;
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
     private String catid;
 

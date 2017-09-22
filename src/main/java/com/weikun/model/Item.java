@@ -4,6 +4,15 @@ import java.math.BigDecimal;
 
 public class Item {
     private String itemid;
+    private Product product;
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
     private String productid;
 
