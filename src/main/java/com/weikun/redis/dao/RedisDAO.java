@@ -2,13 +2,11 @@ package com.weikun.redis.dao;
 
 import com.weikun.model.Account;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.HashOperations;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.SetOperations;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 创建者：weikun【YST】   日期：2017/9/17
@@ -39,6 +37,21 @@ public class RedisDAO {
 
         Account a=(Account)hashOper.get("account","weikun");
         System.out.println(a);
+    }
+    public void saveStringByRedis(Object value){
+        ValueOperations vo=redisTemplate.opsForValue();
+        vo.set("sessionusername",value);
+    }
+    public void setSessionByRedis(Object value){//通过redis存储session
+        saveStringByRedis(value);
+        redisTemplate.expire("sessionusername",1800, TimeUnit.SECONDS);//cookieusername
+    }
+
+    public Object getSessionByRedis(String key){//通过redis读取session
+
+        ValueOperations vo=redisTemplate.opsForValue();
+        return vo.get("sessionusername");
+
     }
 
 }

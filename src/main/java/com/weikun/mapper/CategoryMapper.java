@@ -49,6 +49,18 @@ public interface CategoryMapper {
     List<Category> selectByExample(CategoryExample example);
 
     @Select({
+            "select",
+            "catid, name, descn",
+            "from category"
+    })
+    @Results({
+            @Result(column="catid", property="catid", jdbcType=JdbcType.VARCHAR, id=true),
+            @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
+            @Result(column="descn", property="descn", jdbcType=JdbcType.VARCHAR)
+    })
+    List<Category> selectCategoryAll();
+
+    @Select({
         "select",
         "catid, name, descn",
         "from category",
