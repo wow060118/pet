@@ -1,6 +1,8 @@
 package com.weikun.model;
 
-public class Profile {
+import java.io.Serializable;
+
+public class Profile implements Serializable {
     private String username;
 
     private String lang;

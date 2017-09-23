@@ -1,6 +1,8 @@
 package com.weikun.model;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     private String productid;
     private Category category;
 

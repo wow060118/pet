@@ -4,6 +4,15 @@ import java.io.Serializable;
 
 public class Account implements Serializable {
     private String username;
+    private Profile profile;
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
 
     private String password;
 

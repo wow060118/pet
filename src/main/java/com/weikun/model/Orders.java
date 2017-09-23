@@ -1,9 +1,10 @@
 package com.weikun.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class Orders extends OrdersKey {
+public class Orders extends OrdersKey implements Serializable {
     private Date orderdate;
 
     private BigDecimal totalprice;

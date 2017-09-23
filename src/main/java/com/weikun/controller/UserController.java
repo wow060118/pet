@@ -31,6 +31,19 @@ public class UserController {
     @Autowired
     private UserService uservice;
 
+
+    @RequestMapping(value = "/reg/",method = RequestMethod.POST)
+    @ApiOperation(value="用户注册", notes="用户注册API")
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "成功"),
+            @ApiResponse(code = 404, message = "注册失败！")})
+    public ResponseEntity<Void> reg(@RequestBody Account account) {//@RequestBody Account account
+
+        if(uservice.insert(account)>0){
+            //把当前用户存储到redis下，模拟session
+            return new ResponseEntity<Void>(HttpStatus.OK);
+        }
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);//204
+    }
     @RequestMapping(value = "/login/",method = RequestMethod.POST)
     @ApiOperation(value="用户登录", notes="用户登录API")
     @ApiResponses(value = {@ApiResponse(code = 200, message = "成功"),

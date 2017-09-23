@@ -1,6 +1,8 @@
 package com.weikun.model;
 
-public class Cart extends CartKey {
+import java.io.Serializable;
+
+public class Cart extends CartKey implements Serializable {
     private Integer quantity;
 
     public Integer getQuantity() {
