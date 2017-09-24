@@ -20,6 +20,8 @@ public class InitDataService {
         dao.initCategory();
         dao.initProduct();
         dao.initItem();
+        dao.initCarts();
+        dao.initOrders();
     }
 
 }

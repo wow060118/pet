@@ -1,17 +1,44 @@
 package com.weikun.controller;
 
-import io.swagger.annotations.Api;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.weikun.mapper.MyQuery;
+import com.weikun.model.Category;
+import com.weikun.model.Item;
+import com.weikun.model.Product;
+import com.weikun.service.PetService;
+import io.swagger.annotations.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
- * åˆ›å»ºè€…ï¼šweikunã€YSTã€‘   æ—¥æœŸï¼š2017/9/23
- * è¯´è¯´åŠŸèƒ½ï¼š
+ * ´´½¨Õß£ºweikun¡¾YST¡¿   ÈÕÆÚ£º2017/9/23
+ * ËµËµ¹¦ÄÜ£º
  */
 @RestController
 @RequestMapping("/pet")
 @CrossOrigin
-@Api(value = "petController", description = "å® ç‰©ç®¡ç†æ§åˆ¶å™¨")
+@Api(value = "petController", description = "³èÎï¹ÜÀí¿ØÖÆÆ÷")
 public class PetController {
+    @Autowired
+    private PetService pservice;
+    @RequestMapping(value = "/query/",method = RequestMethod.POST)
+    @ApiOperation(value="È¡¸÷ÖÖ³èÎïÊı¾İ", notes="È¡¸÷ÖÖ³èÎïÊı¾İ")
+    @ApiImplicitParam(name = "query", value = "²éÑ¯µÄ¶ÔÏó",
+            required = true, dataType = "MyQuery")
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "³É¹¦")})
+    public ResponseEntity<List> queryPet(@RequestBody MyQuery query){
+        List list=null;
+        if (!query.getCategory().equals("")){//Í¨¹ıÖÖÀà²éÑ¯²úÆ·
+            list=pservice.queryPetProduct(query.getCategory());
+        }else if (!query.getProduct().equals("")){
+            list=pservice.queryPetProduct(query.getProduct());
+        }else if (!query.getItem().equals("")){
+            list=pservice.queryPetProduct(query.getItem());
+        }
+
+        return new ResponseEntity<List>(list, HttpStatus.OK);
+    }
 }

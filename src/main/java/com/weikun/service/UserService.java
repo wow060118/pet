@@ -27,6 +27,10 @@ public class UserService {
     public void saveSession(Object object){
         rdao.setSessionByRedis(object);
     }
+    public void removeSession(){
+        rdao.removeSessionByRedis();
+    }
+
     public Object getSession(String key){
         return rdao.getSessionByRedis(key);
     }

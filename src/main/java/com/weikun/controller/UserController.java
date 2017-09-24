@@ -4,10 +4,7 @@ import com.weikun.model.Account;
 import com.weikun.model.Category;
 import com.weikun.service.PetService;
 import com.weikun.service.UserService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -34,6 +31,8 @@ public class UserController {
 
     @RequestMapping(value = "/reg/",method = RequestMethod.POST)
     @ApiOperation(value="用户注册", notes="用户注册API")
+    @ApiImplicitParam(name = "account", value = "登录的对象",
+            required = true, dataType = "Account")
     @ApiResponses(value = {@ApiResponse(code = 200, message = "成功"),
             @ApiResponse(code = 404, message = "注册失败！")})
     public ResponseEntity<Void> reg(@RequestBody Account account) {//@RequestBody Account account
@@ -44,8 +43,27 @@ public class UserController {
         }
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);//204
     }
+
+
+
+    @RequestMapping(value = "/logout/",method = RequestMethod.GET)
+    @ApiOperation(value="用户注销", notes="用户注销API")
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "成功"),
+            @ApiResponse(code = 404, message = "注销失败！")})
+    public ResponseEntity<Void> loginout(){//@RequestBody Account account
+
+        uservice.removeSession();
+
+        return new ResponseEntity<Void>(HttpStatus.OK);
+
+    }
+
+
+
     @RequestMapping(value = "/login/",method = RequestMethod.POST)
     @ApiOperation(value="用户登录", notes="用户登录API")
+    @ApiImplicitParam(name = "account", value = "登录的对象",
+            required = true, dataType = "Account")
     @ApiResponses(value = {@ApiResponse(code = 200, message = "成功"),
             @ApiResponse(code = 404, message = "登录失败！")})
     public ResponseEntity<Void> login(@RequestBody Account account){//@RequestBody Account account
