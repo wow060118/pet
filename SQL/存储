@@ -1,0 +1,63 @@
+drop procedure  if exists addCart9;
+delimiter //
+create procedure addCart9(
+	in in_itemid varchar(20),
+	in in_username varchar(20),
+	in in_quantity int,
+	out out_oid int
+)
+begin
+	#1 取出订单日期为空，且是当前用户的那笔订单
+	set @oid:=0;
+	set @qua:=0;
+	select orderid into @oid
+	from orders o
+	where o.orderdate is null and o.username=in_username
+	limit 1;
+
+	if @oid='' then #代表不能继续购物,必须重新生成订单
+
+		select orderid into @oid
+		from orders o
+		where  o.username=in_username
+		order by orderid desc
+		limit 1;
+
+		set @oid:=@oid+1; #计算出新的订单编号
+		#新生成订单
+		insert into orders (orderid,username) values(@oid,in_username);
+
+
+
+	else # 代表还可以继续购物，还没进行结算，需要看是否在该订单下有老商品
+
+		select quantity into @qua
+		from cart c
+		where c.orderid=@oid and c.username=in_username and c.itemid=in_itemid;
+		if @qua='' then  #判断是否有老商品，纯新商品
+
+				#再在该订单下生成新的购物数据
+
+			insert into cart(orderid,username,itemid,quantity)
+				values(@oid,in_username,in_itemid,in_quantity);
+
+		else # 有老商品
+
+				#再在该订单下生成新的购物数据
+			set @qua:=@qua+in_quantity;
+
+			update  cart c set quantity=@qua
+			where c.orderid=@oid and c.username=in_username
+			and c.itemid=in_itemid;
+
+		end if;
+
+
+
+
+	end if;
+	set out_oid:=@oid;
+
+
+end //
+delimiter ;
