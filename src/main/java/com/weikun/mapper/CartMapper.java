@@ -4,17 +4,10 @@ import com.weikun.model.Cart;
 import com.weikun.model.CartExample;
 import com.weikun.model.CartKey;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.InsertProvider;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectProvider;
-import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.annotations.UpdateProvider;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.mapping.StatementType;
 import org.apache.ibatis.type.JdbcType;
 
 public interface CartMapper {
@@ -51,6 +44,15 @@ public interface CartMapper {
         @Result(column="quantity", property="quantity", jdbcType=JdbcType.INTEGER)
     })
     List<Cart> selectByExample(CartExample example);
+
+    @Insert(value= "{ CALL  addCart9( " +
+            "#{in_itemid, mode=IN, jdbcType=VARCHAR}," +
+            "#{in_username, mode=IN, jdbcType=VARCHAR}," +
+            "#{in_quantity, mode=IN, jdbcType=VARCHAR}," +
+            "#{out_oid, mode=OUT, jdbcType=VARCHAR})}")
+    @Options(statementType = StatementType.CALLABLE)
+    void addCart(Map map);
+
 
     @Select({
         "select",
