@@ -5,6 +5,16 @@ public class CartKey {
 
     private String itemid;
 
+    public String getProductid() {
+        return productid;
+    }
+
+    public void setProductid(String productid) {
+        this.productid = productid;
+    }
+
+    private String productid;
+
     private String username;
 
     public Integer getOrderid() {

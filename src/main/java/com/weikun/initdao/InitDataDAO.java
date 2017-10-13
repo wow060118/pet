@@ -18,7 +18,7 @@ public class InitDataDAO {
 
     public void getHashByKey() {
 
-        initDao.getHashByKey();
+        initDao.getAccountByKey();
     }
 
     public void initAccount() {//hash
