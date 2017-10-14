@@ -56,6 +56,9 @@ public class RedisDAO {
         Account a=(Account)hashOper.get("account","weikun");
         System.out.println(a);
     }
+    public void delStringByRedis(String key){
+        redisTemplate.delete(key);
+    }
     public String getStringByRedis(String key){
         ValueOperations vo=redisTemplate.opsForValue();
         return vo.get(key).toString();
@@ -126,7 +129,7 @@ public class RedisDAO {
         //如果为0的话，我们需要自增max编号，
         sb.append("if nullflag=='0' then ");
         sb.append("max=max+1 ");//自增
-        sb.append("maxid='1'..max ");//1108
+        sb.append("maxid='\"1'..max..'\"' ");//1108
         sb.append("end ");//自增
         sb.append("redis.call('set','maxid:'..ARGV[4],maxid) ");//送入新值
         //判断是否在购物车中有老商品
