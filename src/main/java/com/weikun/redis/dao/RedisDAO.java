@@ -87,9 +87,18 @@ public class RedisDAO {
     public List<String> queryCart( String username,String oid) {//针对订单号进行查询购物车
         List<String> keys = new ArrayList<String>();
         StringBuffer sb=new StringBuffer();
+        sb.append("local maxid ");
         sb.append("local carts ");
+        sb.append("maxid=redis.call('get','maxid:'..ARGV[1]) ");
+        sb.append("local nullflag=string.sub(maxid,2,2) ");// 0 还是1
+        sb.append("if nullflag=='0' then ");
+        sb.append("return  carts ");
+
+        sb.append("else ");//纯新商品
         sb.append("carts=redis.call('keys','carts:'..ARGV[1]..':'..ARGV[2]..'*') ");
+        sb.append("end ");
         sb.append("return carts ");
+
         ArrayList f=redisTemplate.execute(new RedisCallback<ArrayList>() {
 
             @Override

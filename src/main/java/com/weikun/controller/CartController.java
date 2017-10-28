@@ -85,7 +85,6 @@ public class CartController {
         map.put("in_quantity",cart.getQuantity());
         map.put("in_productid",cart.getProductid());
         map.put("out_oid","");
-
         cservice.addCart(map);//对mysql进行存储
         //对redis进行存储
         String oid=map.get("out_oid").toString();
