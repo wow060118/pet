@@ -18,16 +18,16 @@
             <property name="forceBigDecimals" value="false" />
         </javaTypeResolver>
         <!-- 生成模型的包名和位置 -->
-        <javaModelGenerator targetPackage="com.weikun.model" targetProject="C:\mybatisgen">
+        <javaModelGenerator targetPackage="com.yfr.model" targetProject="C:\mybatisgen">
             <property name="enableSubPackages" value="true" />
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
         <!-- 生成的映射文件包名和位置 -->
-        <sqlMapGenerator targetPackage="com.weikun.mapping" targetProject="C:\mybatisgen">
+        <sqlMapGenerator targetPackage="com.yfr.mapping" targetProject="C:\mybatisgen">
             <property name="enableSubPackages" value="true" />
         </sqlMapGenerator>
         <!-- 生成DAO的包名和位置 XMLMAPPER-->
-        <javaClientGenerator type="ANNOTATEDMAPPER" targetPackage="com.weikun.mapper"
+        <javaClientGenerator type="ANNOTATEDMAPPER" targetPackage="com.yfr.mapper"
                              targetProject="C:\mybatisgen">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
